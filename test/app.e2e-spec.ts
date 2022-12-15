@@ -15,10 +15,14 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+  describe('User 모듈 e2e 테스트', () => {
+    it('/users/login (Post)', () => {
+      const req = { name: 'test' };
+      return request(app.getHttpServer())
+        .post('/users/login')
+        .send(req)
+        .expect(201)
+        .expect(req.name);
+    });
   });
 });
